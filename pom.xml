@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>CoordinatesOnDeath</groupId>
-    <artifactId>CoordinatesOnDeath</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>net.trueog</groupId>
+    <artifactId>ToggleDeathCoordinates</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>CoordinatesOnDeath</name>
+    <name>ToggleDeathCoordinates</name>
 
     <description>Displays the coordinates of the death location of players upon player death.</description>
     <properties>

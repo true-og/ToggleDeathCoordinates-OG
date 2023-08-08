@@ -1,5 +1,15 @@
-name: CoordinatesOnDeath
-version: 'v0.1.1-beta'
-main: coordinatesondeath.coordinatesondeath.CoordinatesOnDeath
+name: ToggleDeathCoordinates
+version: '1.0'
+main: toggleDeathCoordinates.ToggleDeathCoordinates
 api-version: 1.18
 description: Displays the death coordinates of players to them upon death.
+
+commands:
+  tdc:
+    description: Turn the display of your death coordinates in chat on or off.
+    aliases: [toggledeathcoordinates]
+    
+permissions:
+  tdc.use:
+    description: Permission to toggle your death coordinates.
+    default: op
