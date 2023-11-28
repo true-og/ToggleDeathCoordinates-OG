@@ -1,7 +1,7 @@
 name: ToggleDeathCoordinates
 version: '1.0'
 main: toggleDeathCoordinates.ToggleDeathCoordinates
-api-version: 1.18
+api-version: 1.19
 description: Displays the death coordinates of players to them upon death.
 
 commands:
