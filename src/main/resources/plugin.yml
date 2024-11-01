@@ -1,14 +1,13 @@
-name: ToggleDeathCoordinates
-version: '1.0'
-main: toggleDeathCoordinates.ToggleDeathCoordinates
-api-version: 1.19
+name: ToggleDeathCoordinates-OG
+version: '${version}'
+main: plugin.ToggleDeathCoordinatesOG
+api-version: '${apiVersion}'
 description: Displays the death coordinates of players to them upon death.
-
 commands:
   tdc:
     description: Turn the display of your death coordinates in chat on or off.
     aliases: [toggledeathcoordinates]
-    
+
 permissions:
   tdc.use:
     description: Permission to toggle your death coordinates.

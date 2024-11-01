@@ -2,22 +2,24 @@
 // Author: NotAlexNoyle (admin@true-og.net)
 
 // Declare container package that this class resides in.
-package toggleDeathCoordinates;
+package plugin;
 
 import java.io.File;
 import java.io.IOException;
 
 // Import required libraries.
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 // Declare primary class for plugin.
-public final class ToggleDeathCoordinates extends JavaPlugin {
+public final class ToggleDeathCoordinatesOG extends JavaPlugin {
+
+	// Declare plugin instance.
+	private static ToggleDeathCoordinatesOG plugin;
 
 	// Declare prefix for chat messages.
-	final static String prefix = ChatColor.GRAY + "[" + ChatColor.GREEN + "ToggleDeathCoordinates" + ChatColor.DARK_RED + "-OG" + ChatColor.GRAY + "] " + ChatColor.GOLD;
+	final static String prefix = "&8[&2ToggleDeathCoordinates&4-OG&8] ";
 
 	// Declare a container for the player cache in YAML form.
 	private static File disabledPlayers;
@@ -33,6 +35,9 @@ public final class ToggleDeathCoordinates extends JavaPlugin {
 	// Tell bukkit to load the plugin.
 	@Override
 	public void onEnable() {
+
+		// Set plugin instance.
+		plugin = this;
 
 		File existingPlayerCache = null;
 		try {
@@ -82,6 +87,14 @@ public final class ToggleDeathCoordinates extends JavaPlugin {
 
 		// Pass the player cache file.
 		return disabledPlayers;
+
+	}
+
+	// Accessor constructor so that the main class (this) can be referenced from other classes.
+	public static ToggleDeathCoordinatesOG getPlugin() {
+
+		// Pass instance of main.
+		return plugin;
 
 	}
 
