@@ -1,12 +1,12 @@
-# ToggleDeathCoords-OG
+# ToggleDeathCoordinates-OG
 
 A spigot plugin to display death coordinates with a per-player permissions-based toggle. Built for [TrueOG](https://true-og.net/).
 
-Gradle Version: 8.1.1
+Gradle Version: 8.8
 
 Java Version: 17
 
-Minecraft API: 1.18.2
+Minecraft API: 1.19.4
 
 ToggleDeathCoords-OG is a fork of [CoordinatesOnDeath](https://github.com/can-aslan/CoordinatesOnDeath) by [Yağız Can Aslan](https://github.com/can-aslan) released under the terms of the [MIT License](https://github.com/NotAlexNoyle/ToggleDeathCoordinates-OG/blob/master/LICENSE.md).
 
