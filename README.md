@@ -2,7 +2,7 @@
 
 A spigot plugin to display death coordinates with a per-player permissions-based toggle. Built for [TrueOG](https://true-og.net/).
 
-Gradle Version: 8.8
+Gradle Version: 8.11.1
 
 Java Version: 17
 
