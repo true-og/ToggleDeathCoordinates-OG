@@ -13,87 +13,78 @@ import org.bukkit.plugin.java.JavaPlugin;
 // Declare primary class for plugin.
 public final class ToggleDeathCoordinatesOG extends JavaPlugin {
 
-	// Declare plugin instance.
-	private static ToggleDeathCoordinatesOG plugin;
+    // Declare plugin instance.
+    private static ToggleDeathCoordinatesOG plugin;
 
-	// Declare prefix for chat messages.
-	final static String prefix = "&8[&2ToggleDeathCoordinates&4-OG&8] ";
+    // Declare prefix for chat messages.
+    static final String prefix = "&8[&2ToggleDeathCoordinates&4-OG&8] ";
 
-	// Declare a container for the player cache in YAML form.
-	private static File disabledPlayers;
+    // Declare a container for the player cache in YAML form.
+    private static File disabledPlayers;
 
-	// Share chat prefix with other classes.
-	public static String getPrefix() {
+    // Share chat prefix with other classes.
+    public static String getPrefix() {
 
-		// Pass constant String.
-		return prefix;
+        // Pass constant String.
+        return prefix;
+    }
 
-	}
+    // Tell bukkit to load the plugin.
+    @Override
+    public void onEnable() {
 
-	// Tell bukkit to load the plugin.
-	@Override
-	public void onEnable() {
+        // Set plugin instance.
+        plugin = this;
 
-		// Set plugin instance.
-		plugin = this;
+        File existingPlayerCache = null;
+        try {
 
-		File existingPlayerCache = null;
-		try {
+            existingPlayerCache = new File(this.getDataFolder(), "PlayerCache.yml");
 
-			existingPlayerCache = new File(this.getDataFolder(), "PlayerCache.yml");
+            if (!existingPlayerCache.exists()) {
 
-			if (! existingPlayerCache.exists()) {
+                existingPlayerCache.createNewFile();
+            }
 
-				existingPlayerCache.createNewFile();
+        } catch (IOException error) {
 
-			}
+            this.getLogger().severe("Something went wrong when creating the player cache file!");
+        }
 
-		}
-		catch (IOException error) {
+        // Pass file to other classes.
+        disabledPlayers = existingPlayerCache;
+        // Set YAML cache to contents of file.
+        YamlConfiguration.loadConfiguration(existingPlayerCache);
 
-			this.getLogger().severe("Something went wrong when creating the player cache file!");
+        // Load listener class and pass this class to it.
+        new Listeners(this);
 
-		}
+        // Run command when plugin event is triggered.
+        this.getCommand("tdc").setExecutor(new CommandManager());
 
-		// Pass file to other classes.
-		disabledPlayers = existingPlayerCache;
-		// Set YAML cache to contents of file.
-		YamlConfiguration.loadConfiguration(existingPlayerCache);
+        // Show a startup message in the console.
+        Bukkit.getConsoleSender().sendMessage("ToggleDeathCoordinates enabled.");
+    }
 
-		// Load listener class and pass this class to it.
-		new Listeners(this);
+    // Tell bukkit what to do when shutting the server down.
+    @Override
+    public void onDisable() {
 
-		// Run command when plugin event is triggered.
-		this.getCommand("tdc").setExecutor(new CommandManager());
+        // Display shutdown message in console.
+        Bukkit.getLogger().info("ToggleDeathCoordinates disabled.");
+    }
 
-		// Show a startup message in the console.
-		Bukkit.getConsoleSender().sendMessage("ToggleDeathCoordinates enabled.");
+    // Declare a function to share the player cache file with other class.
+    public static File getDisabledPlayers() {
 
-	}
+        // Pass the player cache file.
+        return disabledPlayers;
+    }
 
-	// Tell bukkit what to do when shutting the server down.
-	@Override
-	public void onDisable() {
+    // Accessor constructor so that the main class (this) can be referenced from other classes.
+    public static ToggleDeathCoordinatesOG getPlugin() {
 
-		// Display shutdown message in console.
-		Bukkit.getLogger().info("ToggleDeathCoordinates disabled.");
-
-	}
-
-	// Declare a function to share the player cache file with other class.
-	public static File getDisabledPlayers() {
-
-		// Pass the player cache file.
-		return disabledPlayers;
-
-	}
-
-	// Accessor constructor so that the main class (this) can be referenced from other classes.
-	public static ToggleDeathCoordinatesOG getPlugin() {
-
-		// Pass instance of main.
-		return plugin;
-
-	}
-
+        // Pass instance of main.
+        return plugin;
+    }
 }

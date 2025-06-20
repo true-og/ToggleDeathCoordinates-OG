@@ -12,7 +12,9 @@ java {
 }
 
 group = "net.trueog.toggledeathcoordinates-og" // Declare bundle identifier.
+
 version = "1.1" // Declare plugin version (will be in .jar).
+
 val apiVersion = "1.19" // Declare minecraft server target version.
 
 tasks.named<ProcessResources>("processResources") {
@@ -33,7 +35,7 @@ repositories {
         url = uri("https://repo.purpurmc.org/snapshots") // Purpur repository.
     }
     maven {
-    	url = uri("https://oss.sonatype.org/content/groups/public/") // Sonatype repository.
+        url = uri("https://oss.sonatype.org/content/groups/public/") // Sonatype repository.
     }
 }
 
