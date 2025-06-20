@@ -6,8 +6,6 @@ package plugin;
 
 import java.io.File;
 import java.io.IOException;
-
-// Import required libraries.
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;

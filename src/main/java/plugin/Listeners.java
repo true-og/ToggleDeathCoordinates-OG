@@ -5,8 +5,6 @@
 package plugin;
 
 import java.io.File;
-
-// Import required libraries.
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
