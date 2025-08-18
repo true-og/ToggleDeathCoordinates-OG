@@ -27,6 +27,7 @@ public final class ToggleDeathCoordinatesOG extends JavaPlugin {
 
         // Pass constant String.
         return prefix;
+
     }
 
     // Tell bukkit to load the plugin.
@@ -44,11 +45,13 @@ public final class ToggleDeathCoordinatesOG extends JavaPlugin {
             if (!existingPlayerCache.exists()) {
 
                 existingPlayerCache.createNewFile();
+
             }
 
         } catch (IOException error) {
 
             this.getLogger().severe("Something went wrong when creating the player cache file!");
+
         }
 
         // Pass file to other classes.
@@ -64,6 +67,7 @@ public final class ToggleDeathCoordinatesOG extends JavaPlugin {
 
         // Show a startup message in the console.
         Bukkit.getConsoleSender().sendMessage("ToggleDeathCoordinates enabled.");
+
     }
 
     // Tell bukkit what to do when shutting the server down.
@@ -72,6 +76,7 @@ public final class ToggleDeathCoordinatesOG extends JavaPlugin {
 
         // Display shutdown message in console.
         Bukkit.getLogger().info("ToggleDeathCoordinates disabled.");
+
     }
 
     // Declare a function to share the player cache file with other class.
@@ -79,12 +84,16 @@ public final class ToggleDeathCoordinatesOG extends JavaPlugin {
 
         // Pass the player cache file.
         return disabledPlayers;
+
     }
 
-    // Accessor constructor so that the main class (this) can be referenced from other classes.
+    // Accessor constructor so that the main class (this) can be referenced from
+    // other classes.
     public static ToggleDeathCoordinatesOG getPlugin() {
 
         // Pass instance of main.
         return plugin;
+
     }
+
 }

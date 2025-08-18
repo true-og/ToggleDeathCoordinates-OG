@@ -22,6 +22,7 @@ public class Listeners implements Listener {
 
         // Receive instance of primary class.
         Bukkit.getPluginManager().registerEvents(this, plugin);
+
     }
 
     // Listen for a death event in-game.
@@ -46,20 +47,22 @@ public class Listeners implements Listener {
 
             // Send the player their death coordinates in chat.
             player.sendMessage(ToggleDeathCoordinatesOG.getPrefix() + "You" + deathMsg);
+
         }
 
         // If the player does not have permission (ie. is not OG Master), do this.
         if (!player.hasPermission("toggledeathcoordinates.use")) {
 
             // Advertise OG Master to players who don't have it.
-            UtilitiesOG.trueogMessage(
-                    player,
-                    ToggleDeathCoordinatesOG.getPrefix()
-                            + " &4&lOG Master &6and above can toggle death coordinates being shown in chat with &e/tdc&6. You can upgrade with &B&l/buy&6.");
+            UtilitiesOG.trueogMessage(player, ToggleDeathCoordinatesOG.getPrefix()
+                    + " &4&lOG Master &6and above can toggle death coordinates being shown in chat with &e/tdc&6. You can upgrade with &B&l/buy&6.");
+
         }
+
     }
 
-    // Declare a function to tell whether or not death coordinates are on for a given player.
+    // Declare a function to tell whether or not death coordinates are on for a
+    // given player.
     public boolean deathCoordinatesAreEnabled(Player player) {
 
         // Get the player file from the main class.
@@ -69,8 +72,7 @@ public class Listeners implements Listener {
         YamlConfiguration playerCache = YamlConfiguration.loadConfiguration(playerFile);
 
         // Get the current state of the player's death coordinates from the YAML.
-        boolean playersDeathCoordinatesAreEnabled =
-                playerCache.getBoolean((player).getUniqueId().toString());
+        boolean playersDeathCoordinatesAreEnabled = playerCache.getBoolean((player).getUniqueId().toString());
 
         // If player's death coordinates are now set to false, do this...
         if (playersDeathCoordinatesAreEnabled) {
@@ -84,6 +86,9 @@ public class Listeners implements Listener {
 
             // Pass the true value back to the Listener.
             return true;
+
         }
+
     }
+
 }
