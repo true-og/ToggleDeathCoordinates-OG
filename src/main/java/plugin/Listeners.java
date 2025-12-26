@@ -5,7 +5,7 @@
 package plugin;
 
 import java.io.File;
-import net.trueog.utilitiesog.UtilitiesOG;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+
+import net.trueog.utilitiesog.UtilitiesOG;
 
 // Declare listener class.
 public class Listeners implements Listener {
@@ -30,23 +32,23 @@ public class Listeners implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
 
         // Get player from event.
-        Player player = event.getEntity();
+        final Player player = event.getEntity();
 
         // Get player's death location.
-        Location eyeLocation = player.getEyeLocation();
+        final Location eyeLocation = player.getEyeLocation();
 
         // Declare death message with formatting and coordinates.
-        String deathMsg = (" died at X = " + eyeLocation.getBlockX() + ", Y = " + eyeLocation.getBlockY() + ", Z = "
-                + eyeLocation.getBlockZ() + ".");
+        final String deathMsg = (" died at &eX = " + eyeLocation.getBlockX() + ", Y = " + eyeLocation.getBlockY()
+                + ", Z = " + eyeLocation.getBlockZ() + "&6.");
 
         // Log player's death coordinates in console.
-        Bukkit.getLogger().info(ToggleDeathCoordinatesOG.getPrefix() + player.getName() + deathMsg);
+        UtilitiesOG.logToConsole(ToggleDeathCoordinatesOG.getPrefix(), player.getName() + deathMsg);
 
         // If death coordinates are enabled for the given player, do this...
-        if (deathCoordinatesAreEnabled(player)) {
+        if (!deathCoordinatesAreDisabled(player)) {
 
             // Send the player their death coordinates in chat.
-            player.sendMessage(ToggleDeathCoordinatesOG.getPrefix() + "You" + deathMsg);
+            UtilitiesOG.trueogMessage(player, ToggleDeathCoordinatesOG.getPrefix() + "&6You" + deathMsg);
 
         }
 
@@ -63,31 +65,12 @@ public class Listeners implements Listener {
 
     // Declare a function to tell whether or not death coordinates are on for a
     // given player.
-    public boolean deathCoordinatesAreEnabled(Player player) {
+    public boolean deathCoordinatesAreDisabled(Player player) {
 
-        // Get the player file from the main class.
-        File playerFile = ToggleDeathCoordinatesOG.getDisabledPlayers();
+        final File playerFile = ToggleDeathCoordinatesOG.getDisabledPlayers();
+        final YamlConfiguration playerCache = YamlConfiguration.loadConfiguration(playerFile);
 
-        // Convert the file to a YAML object for manipulation.
-        YamlConfiguration playerCache = YamlConfiguration.loadConfiguration(playerFile);
-
-        // Get the current state of the player's death coordinates from the YAML.
-        boolean playersDeathCoordinatesAreEnabled = playerCache.getBoolean((player).getUniqueId().toString());
-
-        // If player's death coordinates are now set to false, do this...
-        if (playersDeathCoordinatesAreEnabled) {
-
-            // Pass the false value back to the Listener.
-            return false;
-
-        }
-        // If player's death coordinates are now set to true, do this...
-        else {
-
-            // Pass the true value back to the Listener.
-            return true;
-
-        }
+        return playerCache.getBoolean(player.getUniqueId().toString(), false);
 
     }
 

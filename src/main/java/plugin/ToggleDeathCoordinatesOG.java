@@ -6,15 +6,21 @@ package plugin;
 
 import java.io.File;
 import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import net.trueog.utilitiesog.UtilitiesOG;
 
 // Declare primary class for plugin.
 public final class ToggleDeathCoordinatesOG extends JavaPlugin {
 
     // Declare plugin instance.
     private static ToggleDeathCoordinatesOG plugin;
+
+    // Declare SimpleYaml object for player cache.
+    YamlConfiguration playerCacheYaml;
 
     // Declare prefix for chat messages.
     static final String prefix = "&8[&2ToggleDeathCoordinates&4-OG&8] ";
@@ -37,35 +43,53 @@ public final class ToggleDeathCoordinatesOG extends JavaPlugin {
         // Set plugin instance.
         plugin = this;
 
-        File existingPlayerCache = null;
-        try {
+        // Ensure data folder exists
+        if (!getDataFolder().exists() && !getDataFolder().mkdirs()) {
 
-            existingPlayerCache = new File(this.getDataFolder(), "PlayerCache.yml");
-
-            if (!existingPlayerCache.exists()) {
-
-                existingPlayerCache.createNewFile();
-
-            }
-
-        } catch (IOException error) {
-
-            this.getLogger().severe("Something went wrong when creating the player cache file!");
+            getLogger().severe("Could not create plugin data folder: " + getDataFolder().getAbsolutePath());
+            getServer().getPluginManager().disablePlugin(this);
+            return;
 
         }
 
-        // Pass file to other classes.
-        disabledPlayers = existingPlayerCache;
+        final File playerCacheFile = new File(getDataFolder(), "PlayerCache.yml");
+
+        // Extract default PlayerCache.yml from jar.
+        if (!playerCacheFile.exists()) {
+
+            saveResource("PlayerCache.yml", false);
+
+        }
+
+        disabledPlayers = playerCacheFile;
+
         // Set YAML cache to contents of file.
-        YamlConfiguration.loadConfiguration(existingPlayerCache);
+        playerCacheYaml = YamlConfiguration.loadConfiguration(playerCacheFile);
+        try {
+
+            playerCacheYaml.save(playerCacheFile);
+
+        } catch (IOException error) {
+
+            UtilitiesOG.logToConsole(prefix, "ERROR: Failed to load player cache YAML file!");
+            error.printStackTrace();
+
+        }
 
         // Load listener class and pass this class to it.
         new Listeners(this);
 
-        // Run command when plugin event is triggered.
-        this.getCommand("tdc").setExecutor(new CommandManager());
+        // Init commands.
+        if (getCommand("tdc") != null) {
 
-        // Show a startup message in the console.
+            getCommand("tdc").setExecutor(new CommandManager());
+
+        } else {
+
+            getLogger().severe("Command 'tdc' not found in plugin.yml!");
+
+        }
+
         Bukkit.getConsoleSender().sendMessage("ToggleDeathCoordinates enabled.");
 
     }
@@ -87,7 +111,7 @@ public final class ToggleDeathCoordinatesOG extends JavaPlugin {
 
     }
 
-    // Accessor constructor so that the main class (this) can be referenced from
+    // Accessory constructor so that the main class (this) can be referenced from
     // other classes.
     public static ToggleDeathCoordinatesOG getPlugin() {
 

@@ -14,3 +14,6 @@ ToggleDeathCoords-OG is a fork of [CoordinatesOnDeath](https://github.com/can-as
 - Prints the player name and death location (x-y-z coordinates) of the player to the console.
 - Sends the player death location (x-y-z coordinates) to the player who died as a message.
 - Allows individual players to toggle showing death coordinates based on rank and permissions.
+
+## Planned features
+- Use KeyDB with Lettuce for player cache instead of YAML.

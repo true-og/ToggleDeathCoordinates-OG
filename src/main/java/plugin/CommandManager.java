@@ -6,12 +6,15 @@ package plugin;
 
 import java.io.File;
 import java.io.IOException;
-import net.trueog.utilitiesog.UtilitiesOG;
+
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+
+import net.trueog.utilitiesog.UtilitiesOG;
 
 // Extends bukkit class to run commands.
 public class CommandManager implements CommandExecutor {
@@ -29,16 +32,14 @@ public class CommandManager implements CommandExecutor {
     }
 
     // Command execution event handler extending bukkit's CommandManager
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         // Takes over command execution if plugin is invoked.
-        if (cmd.getName().equalsIgnoreCase("tdc")) {
+        if (StringUtils.equalsIgnoreCase(cmd.getName(), "tdc")) {
 
             // Checks to make sure the command is being run in-game and not in the console.
-            if (sender instanceof Player) {
-
-                // Convert sender to player once it has been determined that they are one.
-                Player player = (Player) sender;
+            if (sender instanceof Player player) {
 
                 // Make sure the player has permission first.
                 if (player.hasPermission("toggledeathcoordinates.use")) {
@@ -76,13 +77,13 @@ public class CommandManager implements CommandExecutor {
     public void doDeathCoordinateToggle(Player player) {
 
         // Get the player file from the main class.
-        File playerFile = ToggleDeathCoordinatesOG.getDisabledPlayers();
+        final File playerFile = ToggleDeathCoordinatesOG.getDisabledPlayers();
 
         // Convert the file to a YAML object for manipulation.
-        YamlConfiguration playerCache = YamlConfiguration.loadConfiguration(playerFile);
+        final YamlConfiguration playerCache = YamlConfiguration.loadConfiguration(playerFile);
 
         // Get the current state of the player's death coordinates from the YAML.
-        boolean toggleState = playerCache.getBoolean((player).getUniqueId().toString());
+        final boolean toggleState = playerCache.getBoolean((player).getUniqueId().toString());
 
         // Flip the true/false value to the opposite of what it currently is.
         playerCache.set((player).getUniqueId().toString(), !toggleState);
@@ -95,12 +96,13 @@ public class CommandManager implements CommandExecutor {
 
         }
         // Catch a file read/write error if one is thrown.
-        catch (IOException e) {
+        catch (IOException error) {
 
             // Send an error message to the player who tried to toggle their death
             // coordinates.
             UtilitiesOG.trueogMessage(player, ToggleDeathCoordinatesOG.getPrefix()
                     + "&cERROR: ToggleDeathCoordinates encountered a problem. Please report this issue to staff.");
+            error.printStackTrace();
 
         }
 

@@ -26,7 +26,7 @@ configurations.creating {
 
 configure<EclipseModel> {
     project {
-        name = "ToggleDeathCoordinates-OG-Plugin"
+        name = "ToggleDeathCoordinates-OG"
     }
     classpath {
         plusConfigurations.add(ideLibs)
