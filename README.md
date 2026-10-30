@@ -8,7 +8,7 @@ Java Version: 17
 
 Minecraft API: 1.19.4
 
-ToggleDeathCoords-OG is a fork of [CoordinatesOnDeath](https://github.com/can-aslan/CoordinatesOnDeath) by [Yağız Can Aslan](https://github.com/can-aslan) released under the terms of the [MIT License](https://github.com/NotAlexNoyle/ToggleDeathCoordinates-OG/blob/master/LICENSE.md).
+ToggleDeathCoords-OG is a fork of [CoordinatesOnDeath](https://github.com/can-aslan/CoordinatesOnDeath) by [Yağız Can Aslan](https://github.com/can-aslan) released under the terms of the [MIT License](https://git.trueog.net/trueog/ToggleDeathCoordinates-OG/src/branch/master/LICENSE.md).
 
 ## Features
 - Prints the player name and death location (x-y-z coordinates) of the player to the console.
